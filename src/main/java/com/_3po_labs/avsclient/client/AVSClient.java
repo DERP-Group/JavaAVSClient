@@ -1,4 +1,4 @@
-package com.threepio_labs.avsclient.client;
+package com._3po_labs.avsclient.client;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +18,8 @@ import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
 
+import com._3po_labs.avsclient.model.RecognizeSpeechRequest;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.threepio_labs.avsclient.model.RecognizeSpeechRequest;
 
 public class AVSClient {
 
@@ -36,10 +36,6 @@ public class AVSClient {
 		serviceRoot = client.target(serviceUrl);
 	}
 	
-	public Response recognizeSpeech(String accessToken, RecognizeSpeechRequest request){
-		return recognizeSpeech(accessToken, request, "https://dl.dropbox.com/s/jvpy7e8aj02xjlh/AstroBot.wav?dl=1");
-	}
-	
 	public Response recognizeSpeech(String authString, RecognizeSpeechRequest request, String audioFileUrl){
 
 		MultiPart multiPart = new MultiPart();
@@ -52,26 +48,27 @@ public class AVSClient {
 			multiPartEntity.close();
 			multiPart.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Make AVS Client exception
 			e.printStackTrace();
 		}
 		return response;
 	}
 	
 	public Future<Response> recognizeSpeechAsync(String authString, RecognizeSpeechRequest request, String audioFileUrl){
+		
+		
 
 		MultiPart multiPart = new MultiPart();
 		Builder builder = getInvocationBuilder(authString);
 		Entity<MultiPart> entity = buildMultiPartEntry(multiPart, request, audioFileUrl);
 		
-//		Response response = builder.post(entity);
 		Future<Response> response = builder.async().post(entity);
 		try {
 			MultiPart multiPartEntity = entity.getEntity();
 			multiPartEntity.close();
 			multiPart.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Make AVS Client exception
 			e.printStackTrace();
 		}
 		return response;

@@ -1,10 +1,10 @@
-package com.threepio_labs.avsclient.model;
+package com._3po_labs.avsclient.model;
 
 public class DeviceContext {
 
 	private String name = "playbackState";
 	private String namespace = "AudioPlayer";
-	private Payload payload = new Payload();;
+	private Payload payload = new Payload();
 
 	public String getNamespace() {
 		return namespace;

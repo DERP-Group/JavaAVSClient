@@ -1,4 +1,4 @@
-package com.threepio_labs.avsclient.model;
+package com._3po_labs.avsclient.model;
 
 public class RecognizeSpeechRequest {
 
